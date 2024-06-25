@@ -124,11 +124,17 @@ export default function EditWorkdayDialog(props: Props) {
 				return;
 			}
 
-			props.setWorkdays(props.workdays.filter(wd => !(
-				wd.date.getFullYear() === props.selectedDate?.getFullYear() &&
-				wd.date.getMonth() === props.selectedDate?.getMonth() &&
-				wd.date.getDate() === props.selectedDate?.getDate())
-			));
+			props.setWorkdays((prevWorkdays) => {
+				const updatedWorkdays = props.workdays.filter(wd => !(
+					wd.date.getFullYear() === props.selectedDate?.getFullYear() &&
+					wd.date.getMonth() === props.selectedDate?.getMonth() &&
+					wd.date.getDate() === props.selectedDate?.getDate())
+				);
+
+				AppStorage.saveWorkdays(updatedWorkdays);
+
+				return updatedWorkdays;
+			});
 
 			props.setIsVisible(false);
 		}
