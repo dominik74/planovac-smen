@@ -3,6 +3,7 @@ import styled from "styled-components";
 import IconButton from "./IconButton";
 import { format } from "date-fns";
 import { H1 } from "./H1";
+import { prefix } from "@/prefix";
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -89,7 +90,7 @@ export default function Header(props: Props) {
 		<StyledHeader>
 				<StyledToolbar>
 					<IconButton
-						src={props.isEditing ? "/edit.svg" : "/lock.svg"}
+						src={props.isEditing ? `${prefix}/edit.svg` : `${prefix}/lock.svg`}
 						alt="edit"
 						onClick={() => props.setIsEditing(!props.isEditing)}
 					/>
@@ -97,7 +98,7 @@ export default function Header(props: Props) {
 					{props.isEditing && 
 						<>
 							<IconButton
-								src="/arrow-left.svg"
+								src={`${prefix}/arrow-left.svg`}
 								alt="arrow left"
 								onClick={()	=> decrementPatternOffset()}
 							/>
@@ -105,7 +106,7 @@ export default function Header(props: Props) {
 							<StyledPatternOffsetSpan>Mezera mezi vzory: {props.patternOffset}</StyledPatternOffsetSpan>
 								
 							<IconButton
-								src="/arrow-right.svg"
+								src={`${prefix}/arrow-right.svg`}
 								alt="arrow right"
 								onClick={()	=> incrementPatternOffset()}
 							/>
@@ -119,7 +120,7 @@ export default function Header(props: Props) {
 
 			<StyledMonthControls>
 				<IconButton
-					src="/arrow-left.svg"
+					src={`${prefix}/arrow-left.svg`}
 					alt="arrow left"
 					onClick={decrementMonthIndex}
 				/>
@@ -127,7 +128,7 @@ export default function Header(props: Props) {
 				<p>{getDate()}</p>
 
 				<IconButton
-					src="/arrow-right.svg"
+					src={`${prefix}/arrow-right.svg`}
 					alt="arrow right"
 					onClick={incrementMonthIndex}
 				/>
