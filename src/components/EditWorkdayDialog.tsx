@@ -11,8 +11,8 @@ const StyledEditWorkdayDialog = styled.div`
 	align-items: center;
 	position: absolute;
 	top: 0;
-	bottom: 0;
 	width: 100vw;
+	height: 100svh;
 	background: rgba(0, 0, 0, 0.25);	
 `;
 
