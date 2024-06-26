@@ -24,6 +24,8 @@ const StyledWindow = styled.div`
 	margin: 10px;
 	background: white;	
 	padding: 8px;
+	border-radius: 4px;
+	box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 `;
 
 const StyledBottomDiv = styled.div`
@@ -40,10 +42,18 @@ const StyledBottomDiv = styled.div`
 	}
 `;
 
-const StyledTimeInput = styled.input`
+const StyledTimeInputDiv = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: strech;
 	align-self: center;		
 	flex: 1 1 0%;
-	width: 96px;
+	width: 215px;
+
+	> span {
+		display: flex;
+		align-items: center;
+	}
 `;
 
 interface Props {
@@ -148,22 +158,39 @@ export default function EditWorkdayDialog(props: Props) {
 		return props.workdays.some(wd => wd.date.toDateString() === props.selectedDate?.toDateString());
 	}
 
+	function getWeekday(): string {
+		var options = {  weekday: 'long' } as Intl.DateTimeFormatOptions;
+		var weekday = props.selectedDate?.toLocaleString('cs-CZ', options);
+
+		if (!weekday) {
+			return "";
+		}
+
+		return weekday;
+	}
+
 	return (
 		<StyledEditWorkdayDialog>
 			<StyledWindow>
-				<H1>Upravit směnu</H1>
+				<H1>Upravit směnu {getWeekday()} {props.selectedDate?.toLocaleDateString()}</H1>
 
-				<StyledTimeInput
-					type="time"
-					value={timeStart}
-					onChange={(e) => setTimeStart(e.target.value)}
-				/>
+				<StyledTimeInputDiv>
+					<span>Od:</span>
+					<input
+						type="time"
+						value={timeStart}
+						onChange={(e) => setTimeStart(e.target.value)}
+					/>
+				</StyledTimeInputDiv>
 
-				<StyledTimeInput
-					type="time"
-					value={timeEnd}
-					onChange={(e) => setTimeEnd(e.target.value)}
-				/>
+				<StyledTimeInputDiv>
+					<span>Do:</span>
+					<input
+						type="time"
+						value={timeEnd}
+						onChange={(e) => setTimeEnd(e.target.value)}
+					/>
+				</StyledTimeInputDiv>
 
 				<br />
 				<StyledBottomDiv>
