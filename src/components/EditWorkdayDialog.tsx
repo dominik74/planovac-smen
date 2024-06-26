@@ -48,7 +48,8 @@ const StyledTimeInputDiv = styled.div`
 	align-items: strech;
 	align-self: center;		
 	flex: 1 1 0%;
-	width: 215px;
+	width: 135px;
+	font-size: x-large;
 
 	> span {
 		display: flex;
@@ -175,7 +176,7 @@ export default function EditWorkdayDialog(props: Props) {
 				<H1>Upravit směnu {getWeekday()} {props.selectedDate?.toLocaleDateString()}</H1>
 
 				<StyledTimeInputDiv>
-					<span>Od:</span>
+					<span>Od</span>
 					<input
 						type="time"
 						value={timeStart}
@@ -184,7 +185,7 @@ export default function EditWorkdayDialog(props: Props) {
 				</StyledTimeInputDiv>
 
 				<StyledTimeInputDiv>
-					<span>Do:</span>
+					<span>Do</span>
 					<input
 						type="time"
 						value={timeEnd}
