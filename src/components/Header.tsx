@@ -36,14 +36,6 @@ const StyledToolbar = styled.div`
 	position: relative;
 `;
 
-const StyledPatternOffsetSpan = styled.span`
-	width: 145px;
-
-	@media (min-width: 640px) {
-		width: 175px;
-	}
-`;
-
 interface Props {
 	isSideBarVisible: boolean;
 	setIsSideBarVisible: (arg0: boolean) => void;
@@ -52,7 +44,9 @@ interface Props {
 	isEditing: boolean;
 	setIsEditing: (arg0: boolean) => void;
 	patternOffset: number;
-	setPatternOffset: React.Dispatch<React.SetStateAction<number>>;}
+	setPatternOffset: React.Dispatch<React.SetStateAction<number>>;
+	setIsEditPatternOffsetDialogVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export default function Header(props: Props) {
 	function getDate() {
@@ -70,22 +64,6 @@ export default function Header(props: Props) {
 		props.setViewingMonthIndex(props.viewingMonthIndex - 1);
 	}
 
-	function incrementPatternOffset() {
-		props.setPatternOffset(() => {
-			const updatedPatternOffset = props.patternOffset + 1;
-    		localStorage.setItem("patternOffset", updatedPatternOffset.toString());
-			return updatedPatternOffset;
-		});
-	}
-
-	function decrementPatternOffset() {
-		props.setPatternOffset(() => {
-			const updatedPatternOffset = props.patternOffset - 1;
-    		localStorage.setItem("patternOffset", updatedPatternOffset.toString());
-			return updatedPatternOffset;
-		});
-	}
-
 	return (
 		<StyledHeader>
 				<StyledToolbar>
@@ -96,21 +74,11 @@ export default function Header(props: Props) {
 					/>
 						
 					{props.isEditing && 
-						<>
-							<IconButton
-								src={`${prefix}/arrow-left.svg`}
-								alt="arrow left"
-								onClick={()	=> decrementPatternOffset()}
-							/>
-
-							<StyledPatternOffsetSpan>Mezera mezi vzory: {props.patternOffset}</StyledPatternOffsetSpan>
-								
-							<IconButton
-								src={`${prefix}/arrow-right.svg`}
-								alt="arrow right"
-								onClick={()	=> incrementPatternOffset()}
-							/>
-						</>
+						<IconButton
+							src={`${prefix}/edit.svg`}
+							alt="edit pattern offset"
+							onClick={() => props.setIsEditPatternOffsetDialogVisible(true)}
+						/>
 					}
 				</StyledToolbar>
 

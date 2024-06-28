@@ -8,6 +8,7 @@ import Calendar from "@/components/Calendar";
 import Header from "@/components/Header";
 import EditWorkdayDialog from "@/components/EditWorkdayDialog";
 import { Workday } from "@/types/Workday";
+import EditPatternOffsetDialog from "@/components/EditPatternOffsetDialog";
 
 export default function Home() {
   const [workdays, setWorkdays] = useState<Workday[]>([]);
@@ -15,6 +16,7 @@ export default function Home() {
   const [viewingMonth, setViewingMonth] = useState(new Date().getMonth());
   const [isEditing, setIsEditing] = useState(false);
   const [isEditWorkdayDialogVisible, setIsEditWorkdayDialogVisible] = useState(false);
+  const [isEditPatternOffsetDialogVisible, setIsEditPatternOffsetDialogVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [patternOffset, setPatternOffset] = useState<number>(1);
 
@@ -38,6 +40,7 @@ export default function Home() {
         setIsEditing={setIsEditing}
         patternOffset={patternOffset}
         setPatternOffset={setPatternOffset}
+        setIsEditPatternOffsetDialogVisible={setIsEditPatternOffsetDialogVisible}
       />
 
       <Calendar
@@ -56,11 +59,18 @@ export default function Home() {
 
       {isEditWorkdayDialogVisible &&
         <EditWorkdayDialog
-          isVisible={isEditWorkdayDialogVisible}
-          setIsVisible={setIsEditWorkdayDialogVisible}
+          onClose={() => setIsEditWorkdayDialogVisible(false)}
           workdays={workdays}
           setWorkdays={setWorkdays}
           selectedDate={selectedDate}
+        />
+      }
+
+      {isEditPatternOffsetDialogVisible &&
+        <EditPatternOffsetDialog
+          onClose={() => setIsEditPatternOffsetDialogVisible(false)} 
+          patternOffset={patternOffset}
+          setPatternOffset={setPatternOffset}
         />
       }
     </div>

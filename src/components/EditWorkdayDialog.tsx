@@ -1,46 +1,9 @@
 import styled from "styled-components";
-import { Button } from "./Button";
-import { H1 } from "./H1";
-import { ChangeEvent, useEffect, useState } from "react";
+import DialogWindow from "./DialogWindow";
+import { useEffect, useState } from "react";
 import { Workday } from "@/types/Workday";
 import moment from "moment";
 import { AppStorage } from "@/AppStorage";
-
-const StyledEditWorkdayDialog = styled.div`
-	display: flex;
-	align-items: center;
-	position: absolute;
-	top: 0;
-	width: 100vw;
-	height: 100svh;
-	background: rgba(0, 0, 0, 0.25);	
-`;
-
-const StyledWindow = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 350px;
-	margin: 10px;
-	background: white;	
-	padding: 8px;
-	border-radius: 4px;
-	box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-`;
-
-const StyledBottomDiv = styled.div`
-	display: flex;
-	justify-content: end;
-	margin-top: auto;
-
-	> .leftbutton {
-		margin-right: auto;
-	}
-
-	> .cancelbutton {
-		margin-right: 8px;
-	}
-`;
 
 const StyledTimeInputDiv = styled.div`
 	display: flex;
@@ -58,8 +21,7 @@ const StyledTimeInputDiv = styled.div`
 `;
 
 interface Props {
-	isVisible: boolean;	
-	setIsVisible: (arg0: boolean) => void;
+	onClose: () => void;	
 	workdays: Workday[];
 	setWorkdays: React.Dispatch<React.SetStateAction<Workday[]>>;
 	selectedDate?: Date;
@@ -120,7 +82,7 @@ export default function EditWorkdayDialog(props: Props) {
 			return updatedWorkdays;
 		});
 
-		props.setIsVisible(false);
+		props.onClose();
 	}
 
 	function deleteWorkday() {
@@ -131,7 +93,7 @@ export default function EditWorkdayDialog(props: Props) {
 		if (doesWorkdayExist()) {
 			if (props.workdays.length === 1) {
 				props.setWorkdays([]);
-				props.setIsVisible(false);
+				props.onClose();
 				return;
 			}
 
@@ -147,7 +109,7 @@ export default function EditWorkdayDialog(props: Props) {
 				return updatedWorkdays;
 			});
 
-			props.setIsVisible(false);
+			props.onClose();
 		}
 	}
 
@@ -171,10 +133,15 @@ export default function EditWorkdayDialog(props: Props) {
 	}
 
 	return (
-		<StyledEditWorkdayDialog>
-			<StyledWindow>
-				<H1>Upravit směnu {getWeekday()} {props.selectedDate?.toLocaleDateString()}</H1>
-
+		<DialogWindow
+			title={"Směna " + getWeekday() + " " + props.selectedDate?.toLocaleDateString()}
+			onSave={saveAndQuit}
+			onCancel={props.onClose}
+			useExtraButton={true}
+			isExtraButtonEnabled={!doesWorkdayExist()}
+			extraButtonTitle="Smazat"
+			extraButtonOnClick={deleteWorkday}
+		>
 				<StyledTimeInputDiv>
 					<span>Od</span>
 					<input
@@ -192,14 +159,6 @@ export default function EditWorkdayDialog(props: Props) {
 						onChange={(e) => setTimeEnd(e.target.value)}
 					/>
 				</StyledTimeInputDiv>
-
-				<br />
-				<StyledBottomDiv>
-					<Button className="leftbutton" $isPrimary={false} onClick={deleteWorkday} disabled={!doesWorkdayExist()}>Smazat</Button>
-					<Button className="cancelbutton" $isPrimary={false} onClick={() => props.setIsVisible(false)}>Zrušit</Button>
-					<Button $isPrimary={true} onClick={() => saveAndQuit()}>Uložit</Button>
-				</StyledBottomDiv>
-			</StyledWindow>
-		</StyledEditWorkdayDialog>
+		</DialogWindow>
 	);
 }

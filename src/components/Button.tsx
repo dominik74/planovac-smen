@@ -7,7 +7,7 @@ interface Props {
 export const Button = styled.button<Props>`
 	height: 38px;
 	border: ${props => props.$isPrimary ? "none" : "1px solid lightgray"};
-	border-radius: 4px;
+	border-radius: 6px;
 	padding: 0 10px;
 	background: ${props => props.$isPrimary ? "#3b82f6" : "white"};
 	color: ${props => props.$isPrimary ? "white" : "black"};
@@ -17,7 +17,6 @@ export const Button = styled.button<Props>`
 	}
 
 	&:disabled {
-		// background: lightgray;
 		color: gray;
 		border: 1px solid lightgray;
 	}

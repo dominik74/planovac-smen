@@ -1,21 +1,26 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const StyledIconButton = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 38px;
-	min-width: 38px;
-	height: 38px;
-	border-radius: 4px;
+	width: 50px;
+	min-width: 50px;
+	height: 50px;
+	border-radius: 6px;
 
-	&:hover {
-		border: 2px solid lightgray;
+	&:active {
+		background: lightgray;
 	}
 
 	> img {
 		width: 24px;
 		height: 24px;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+	  &:hover { background: lightgray; }
 	}
 `;
 
