@@ -75,7 +75,7 @@ export default function Header(props: Props) {
 						
 					{props.isEditing && 
 						<IconButton
-							src={`${prefix}/edit.svg`}
+							src={`${prefix}/pattern-offset.svg`}
 							alt="edit pattern offset"
 							onClick={() => props.setIsEditPatternOffsetDialogVisible(true)}
 						/>
