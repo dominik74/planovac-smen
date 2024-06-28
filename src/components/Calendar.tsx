@@ -13,12 +13,14 @@ const StyledCalendar = styled.div`
 const StyledWeekdayGrid = styled.div`
 	display: grid;
 	grid-template-columns: repeat(7, minmax(0, 1fr));
+	grid-auto-rows: 1fr;
 `;
 
 const StyledGrid = styled.div`
 	display: grid;
 	flex: 1;	
 	grid-template-columns: repeat(7, minmax(0, 1fr));
+	grid-auto-rows: 1fr;
 `;
 
 const StyledWeekday = styled.div`
@@ -54,6 +56,7 @@ const StyledDay = styled.div<StyledDayProps>`
 	border: 1px solid lightgray;
 	// height: 96px;
 	background: ${props => getBackgroundColor(props.$dayType)};
+	box-sizing: border-box;
 
 	> span {
 		${props => props.$isToday ? `
