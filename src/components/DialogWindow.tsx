@@ -10,6 +10,7 @@ interface StyledDialogWindowProps {
 const StyledDialogWindow = styled.div<StyledDialogWindowProps>`
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	position: absolute;
 	top: 0;
 	width: 100vw;
@@ -72,6 +73,10 @@ const StyledWindow = styled.div<StyledWindowProps>`
 	`)};
 
 	opacity: ${props => (props.$isShowing ? '1' : '0')};
+
+	@media (min-width: 640px) {
+		width: 520px;
+	} 
 `;
 
 interface Props {
