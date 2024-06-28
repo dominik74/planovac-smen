@@ -41,8 +41,6 @@ interface Props {
 	setIsSideBarVisible: (arg0: boolean) => void;
 	viewingMonthIndex: number;
 	setViewingMonthIndex: (arg0: number) => void;
-	isEditing: boolean;
-	setIsEditing: (arg0: boolean) => void;
 	patternOffset: number;
 	setPatternOffset: React.Dispatch<React.SetStateAction<number>>;
 	setIsEditPatternOffsetDialogVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -66,25 +64,15 @@ export default function Header(props: Props) {
 
 	return (
 		<StyledHeader>
-				<StyledToolbar>
-					<IconButton
-						src={props.isEditing ? `${prefix}/edit.svg` : `${prefix}/lock.svg`}
-						alt="edit"
-						onClick={() => props.setIsEditing(!props.isEditing)}
-					/>
-						
-					{props.isEditing && 
-						<IconButton
-							src={`${prefix}/pattern-offset.svg`}
-							alt="edit pattern offset"
-							onClick={() => props.setIsEditPatternOffsetDialogVisible(true)}
-						/>
-					}
-				</StyledToolbar>
+			<StyledToolbar>
+				<IconButton
+					src={`${prefix}/pattern-offset.svg`}
+					alt="edit pattern offset"
+					onClick={() => props.setIsEditPatternOffsetDialogVisible(true)}
+				/>
+			</StyledToolbar>
 
-			{!props.isEditing &&
-				<H1>Plánovač směn</H1>
-			}							
+			<H1>Plánovač směn</H1>
 
 			<StyledMonthControls>
 				<IconButton

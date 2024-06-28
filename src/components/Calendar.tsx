@@ -83,7 +83,6 @@ enum DayType {
 
 interface Props {
 	viewingMonth: number;	
-	isEditing: boolean;
 	workdays: Workday[];
 	setWorkdays: React.Dispatch<React.SetStateAction<Workday[]>>;
 	setIsEditWorkdayDialogVisible: (arg0: boolean) => void;
@@ -131,10 +130,6 @@ export default function Calendar(props: Props) {
 	}
 
 	function addWorkday(date: Date) {
-		if (!props.isEditing) {
-			return;
-		}
-
 		props.setSelectedDate(date);
 		props.setIsEditWorkdayDialogVisible(true);
 		console.log(props.workdays);

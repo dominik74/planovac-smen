@@ -14,7 +14,6 @@ export default function Home() {
   const [workdays, setWorkdays] = useState<Workday[]>([]);
   const [isSideBarVisible, setIsSideBarVisible] = useState(false);
   const [viewingMonth, setViewingMonth] = useState(new Date().getMonth());
-  const [isEditing, setIsEditing] = useState(false);
   const [isEditWorkdayDialogVisible, setIsEditWorkdayDialogVisible] = useState(false);
   const [isEditPatternOffsetDialogVisible, setIsEditPatternOffsetDialogVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
@@ -36,8 +35,6 @@ export default function Home() {
         setIsSideBarVisible={setIsSideBarVisible}
         viewingMonthIndex={viewingMonth}
         setViewingMonthIndex={setViewingMonth}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
         patternOffset={patternOffset}
         setPatternOffset={setPatternOffset}
         setIsEditPatternOffsetDialogVisible={setIsEditPatternOffsetDialogVisible}
@@ -45,7 +42,6 @@ export default function Home() {
 
       <Calendar
         viewingMonth={viewingMonth}
-        isEditing={isEditing}
         workdays={workdays}
         setWorkdays={setWorkdays}
         setIsEditWorkdayDialogVisible={setIsEditWorkdayDialogVisible}
