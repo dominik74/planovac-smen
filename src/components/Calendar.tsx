@@ -117,8 +117,13 @@ export default function Calendar(props: Props) {
 	}, [props.workdays]);
 
 
-    const getEndingDayIndex = () => {
+    function getEndingDayIndex() {
         const index = endOfMonthDay - 1;
+        return index < 0 ? 6 : index;
+    }
+
+    function getStartingDayIndex() {
+        const index = startOfMonthDay - 1;
         return index < 0 ? 6 : index;
     }
 
@@ -136,7 +141,7 @@ export default function Calendar(props: Props) {
 	}
 
 	function getDateFromCalculation2(i: number) {
-		return subDays(startOfMonth(viewingDate), (startOfMonth(viewingDate).getDay() - i - 2) + 1);
+		return subDays(startOfMonth(viewingDate), (getStartingDayIndex() - i - 1) + 1);
 	}
 
 	function getDateFromCalculation(i: number) {
@@ -240,7 +245,7 @@ export default function Calendar(props: Props) {
 
 			{/* days */}
 			<StyledGrid>
-				{Array.from({length: startOfMonth(viewingDate).getDay() - 1}).map((_, i) => (
+				{Array.from({length: getStartingDayIndex()}).map((_, i) => (
 					<StyledDay key={i} onClick={() => addWorkday(getDateFromCalculation2(i))} $isToday={false} $dayType={getDayType(getDateFromCalculation2(i), true)}>
 						<span>
 							{getDateFromCalculation2(i).getDate()}
