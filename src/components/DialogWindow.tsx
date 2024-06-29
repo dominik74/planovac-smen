@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { H1 } from "./H1";
 import { Button } from "./Button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface StyledDialogWindowProps {
 	$isHiding: boolean;
@@ -95,6 +95,8 @@ export default function DialogWindow(props: Props) {
 	const [isHiding, setIsHiding] = useState(false);
 	const [isShowing, setIsShowing] = useState(false);
 
+	const nodeRef = useRef<HTMLDivElement>(null);
+
 	const closeDelay = 200;
 
 	useEffect(() => {
@@ -117,11 +119,18 @@ export default function DialogWindow(props: Props) {
 		}, closeDelay);
 	}
 
+	function handleOutsideClick(e: React.MouseEvent<HTMLDivElement>) {
+		if (nodeRef.current && !nodeRef.current.contains(e.target as Node)) {
+			cancel();
+		}
+	}
+
 	return (
-		<StyledDialogWindow $isHiding={isHiding}>
+		<StyledDialogWindow $isHiding={isHiding} onClick={handleOutsideClick}>
 			<StyledWindow
 				$isHiding={isHiding}
 				$isShowing={isShowing}
+ 				ref={nodeRef}
 			>
 				<H1>{props.title}</H1>
 
