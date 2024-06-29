@@ -3,7 +3,6 @@ import Image from "next/image";
 import { addDays, format, isToday } from "date-fns";
 import { Button } from "antd";
 import { useEffect, useState } from "react";
-import SideBar from "@/components/SideBar";
 import Calendar from "@/components/Calendar";
 import Header from "@/components/Header";
 import EditWorkdayDialog from "@/components/EditWorkdayDialog";
@@ -12,7 +11,6 @@ import EditPatternOffsetDialog from "@/components/EditPatternOffsetDialog";
 
 export default function Home() {
   const [workdays, setWorkdays] = useState<Workday[]>([]);
-  const [isSideBarVisible, setIsSideBarVisible] = useState(false);
   const [viewingMonth, setViewingMonth] = useState(new Date().getMonth());
   const [isEditWorkdayDialogVisible, setIsEditWorkdayDialogVisible] = useState(false);
   const [isEditPatternOffsetDialogVisible, setIsEditPatternOffsetDialogVisible] = useState(false);
@@ -31,8 +29,6 @@ export default function Home() {
   return (
     <div className="flex flex-col h-dvh overflow-hidden">
       <Header
-        isSideBarVisible={isSideBarVisible}
-        setIsSideBarVisible={setIsSideBarVisible}
         viewingMonthIndex={viewingMonth}
         setViewingMonthIndex={setViewingMonth}
         patternOffset={patternOffset}
@@ -48,10 +44,6 @@ export default function Home() {
         setSelectedDate={setSelectedDate}
         patternOffset={patternOffset}
       />
-
-      {isSideBarVisible &&
-        <SideBar onClose={() => setIsSideBarVisible(false)} />
-      }
 
       {isEditWorkdayDialogVisible &&
         <EditWorkdayDialog

@@ -37,8 +37,6 @@ const StyledToolbar = styled.div`
 `;
 
 interface Props {
-	isSideBarVisible: boolean;
-	setIsSideBarVisible: (arg0: boolean) => void;
 	viewingMonthIndex: number;
 	setViewingMonthIndex: (arg0: number) => void;
 	patternOffset: number;
