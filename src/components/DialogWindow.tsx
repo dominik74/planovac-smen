@@ -119,6 +119,15 @@ export default function DialogWindow(props: Props) {
 		}, closeDelay);
 	}
 
+	function extraButtonClick() {
+		setIsHiding(true);
+		setIsShowing(false);
+		setTimeout(() => {
+			props.extraButtonOnClick?.();
+			props.onCancel();
+		}, closeDelay);
+	}
+
 	function handleOutsideClick(e: React.MouseEvent<HTMLDivElement>) {
 		if (nodeRef.current && !nodeRef.current.contains(e.target as Node)) {
 			cancel();
@@ -144,7 +153,7 @@ export default function DialogWindow(props: Props) {
 						<Button
 							className="leftbutton"
 							$isPrimary={false}
-							onClick={props.extraButtonOnClick}
+							onClick={extraButtonClick}
 							disabled={props.isExtraButtonEnabled}
 						>
 							{props.extraButtonTitle}
