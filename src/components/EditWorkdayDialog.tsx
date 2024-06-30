@@ -7,16 +7,23 @@ import { AppStorage } from "@/AppStorage";
 
 const StyledTimeInputDiv = styled.div`
 	display: flex;
-	justify-content: space-between;
+	column-gap: 30px;
 	align-items: strech;
 	align-self: center;		
 	flex: 1 1 0%;
-	width: 135px;
 	font-size: x-large;
 
 	> span {
 		display: flex;
 		align-items: center;
+	}
+
+	> input {
+		width: 125px;
+		height: 75%;
+		background: lightgray;
+		border-radius: 4px;
+		margin: auto;
 	}
 `;
 
