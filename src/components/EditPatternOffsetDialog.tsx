@@ -116,6 +116,10 @@ export default function EditPatternOffsetDialog(props: Props) {
 		});
 	}
 
+	function isDecreaseButtonEnabled() {
+		return props.patternOffset > -1;
+	}
+
 	return (
 		<DialogWindow
 			title="Mezera mezi vzory (dny)"
@@ -125,11 +129,15 @@ export default function EditPatternOffsetDialog(props: Props) {
 		>
 			<StyledContentDiv>
 				<span></span>
-				<IconButton
-					src={`${prefix}/arrow-left.svg`}
-					alt="arrow left"
-					onClick={()	=> decrementPatternOffset()}
-				/>
+				{isDecreaseButtonEnabled() ?
+					<IconButton
+						src={`${prefix}/arrow-left.svg`}
+						alt="arrow left"
+						onClick={()	=> decrementPatternOffset()}
+					/>
+						:
+					<span className="text-transparent">M</span>
+				}
 
 				<span>{props.patternOffset}</span>		
 
