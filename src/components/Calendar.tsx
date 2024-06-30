@@ -71,6 +71,7 @@ const StyledDay = styled.div<StyledDayProps>`
 		font-weight: ${props => props.$isToday ? "bold" : "normal"};
 		width: 24px;
 		height: 24px;
+		border-radius: 2px;
 	}
 `;
 
