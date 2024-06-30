@@ -169,7 +169,7 @@ export default function DialogWindow(props: Props) {
 						</Button>
 					}
 
-					<Button $isPrimary={false} onClick={save}>
+					<Button $isPrimary={true} onClick={save}>
 						{props.isNonDiscardable ?
 							"OK"
 								:

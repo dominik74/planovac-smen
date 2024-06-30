@@ -9,11 +9,11 @@ export const Button = styled.button<Props>`
 	border: ${props => props.$isPrimary ? "none" : "1px solid lightgray"};
 	border-radius: 6px;
 	padding: 0 10px;
-	background: ${props => props.$isPrimary ? "#3b82f6" : "white"};
+	background: ${props => props.$isPrimary ? "black" : "white"};
 	color: ${props => props.$isPrimary ? "white" : "black"};
 
 	&:hover:enabled {
-		background: ${props => props.$isPrimary ? "#4f96f6" : "rgb(240, 240, 240)"};
+		background: ${props => props.$isPrimary ? "rgb(45, 45, 45)" : "rgb(240, 240, 240)"};
 	}
 
 	&:disabled {
