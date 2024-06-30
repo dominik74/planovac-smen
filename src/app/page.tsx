@@ -15,7 +15,7 @@ export default function Home() {
   const [isEditWorkdayDialogVisible, setIsEditWorkdayDialogVisible] = useState(false);
   const [isEditPatternOffsetDialogVisible, setIsEditPatternOffsetDialogVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
-  const [patternOffset, setPatternOffset] = useState<number>(1);
+  const [patternOffset, setPatternOffset] = useState<number>(0);
 
   useEffect(() => {
     const storedPatternOffset = localStorage.getItem("patternOffset");

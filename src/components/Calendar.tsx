@@ -186,7 +186,7 @@ export default function Calendar(props: Props) {
 	}
 
 	function getNearestStartPatternDate(date: Date) {
-		const patternLength = getTotalDays(getEndPatternDate()) - getTotalDays(getStartPatternDate()) + props.patternOffset;
+		const patternLength = getTotalDays(getEndPatternDate()) - getTotalDays(getStartPatternDate()) + props.patternOffset + 1;
 		const numOfPatternsSinceOrigStartOfPattern =
 			Math.floor((getTotalDays(date) - getTotalDays(getStartPatternDate())) / patternLength);
 		const daysSinceOrigStartOfPattern = numOfPatternsSinceOrigStartOfPattern * patternLength;
