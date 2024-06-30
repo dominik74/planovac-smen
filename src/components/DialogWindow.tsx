@@ -4,7 +4,7 @@ import { Button } from "./Button";
 import { useEffect, useRef, useState } from "react";
 
 interface StyledDialogWindowProps {
-	$isHiding: boolean;
+	$isShowing: boolean;
 }
 
 const StyledDialogWindow = styled.div<StyledDialogWindowProps>`
@@ -15,12 +15,8 @@ const StyledDialogWindow = styled.div<StyledDialogWindowProps>`
 	top: 0;
 	width: 100vw;
 	height: 100svh;
-	background: rgba(0, 0, 0, 0.25);	
-	transition: background 0.2s ease;
-	
-	${props => props.$isHiding &&`
-		background: rgba(0, 0, 0, 0);	
-	`} 
+	transition: all 0.1s ease;
+	background: ${props => props.$isShowing ? "rgba(0, 0, 0, 0)" : "rgba(0, 0, 0, 0.25)"};
 `;
 
 interface StyledBottomDivProps {
@@ -53,23 +49,23 @@ const StyledWindow = styled.div<StyledWindowProps>`
 	flex-direction: column;
 	width: 100%;
 	height: 285px;
-	margin: 10px;
+	margin: 5px;
 	background: white;	
 	padding: 12px;
-	border-radius: 8px;
+	border-radius: 6px;
 	box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 	border: 1px solid gray;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.1s ease-in-out;
 
 	${props => props.$isHiding &&`
-		  transform: scale(0);
+		  transform: scale(0.95);
 	`} 
 
 	${props => (props.$isShowing ? `
 		transform: scale(1);
 	` : `
-    	transition: all 0.07s ease-in-out;
-		transform: scale(0);
+    	transition: all 0.02s ease-in-out;
+		transform: scale(0.95);
 	`)};
 
 	opacity: ${props => (props.$isShowing ? '1' : '0')};
@@ -97,7 +93,7 @@ export default function DialogWindow(props: Props) {
 
 	const nodeRef = useRef<HTMLDivElement>(null);
 
-	const closeDelay = 200;
+	const closeDelay = 100;
 
 	useEffect(() => {
 		setIsShowing(true);
@@ -135,7 +131,7 @@ export default function DialogWindow(props: Props) {
 	}
 
 	return (
-		<StyledDialogWindow $isHiding={isHiding} onClick={handleOutsideClick}>
+		<StyledDialogWindow $isShowing={isHiding} onClick={handleOutsideClick}>
 			<StyledWindow
 				$isHiding={isHiding}
 				$isShowing={isShowing}
