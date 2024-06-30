@@ -138,7 +138,7 @@ export default function EditWorkdayDialog(props: Props) {
 			onSave={saveAndQuit}
 			onCancel={props.onClose}
 			useExtraButton={true}
-			isExtraButtonEnabled={!doesWorkdayExist()}
+			isExtraButtonEnabled={doesWorkdayExist()}
 			extraButtonTitle="Smazat"
 			extraButtonOnClick={deleteWorkday}
 		>

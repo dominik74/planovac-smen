@@ -149,12 +149,11 @@ export default function DialogWindow(props: Props) {
 				<StyledBottomDiv
 					$isNonDiscardable={props.isNonDiscardable ? props.isNonDiscardable : false}
 				>
-					{props.useExtraButton &&
+					{props.useExtraButton && props.isExtraButtonEnabled &&
 						<Button
 							className="leftbutton"
 							$isPrimary={false}
 							onClick={extraButtonClick}
-							disabled={props.isExtraButtonEnabled}
 						>
 							{props.extraButtonTitle}
 						</Button>
