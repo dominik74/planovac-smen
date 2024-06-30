@@ -118,7 +118,7 @@ export default function EditPatternOffsetDialog(props: Props) {
 
 	return (
 		<DialogWindow
-			title="Mezera mezi vzory"
+			title="Mezera mezi vzory (dny)"
 			onSave={props.onClose}
 			onCancel={props.onClose}
 			isNonDiscardable={true}
