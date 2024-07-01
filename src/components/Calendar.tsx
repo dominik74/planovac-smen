@@ -1,4 +1,5 @@
 import { AppStorage } from "@/AppStorage";
+import { DayType } from "@/types/DayType";
 import { Workday } from "@/types/Workday";
 import { addDays, eachDayOfInterval, endOfMonth, isToday, startOfMonth, startOfWeek, subDays } from "date-fns";
 import { useEffect, useState } from "react";
@@ -75,13 +76,6 @@ const StyledDay = styled.div<StyledDayProps>`
 	}
 `;
 
-enum DayType {
-	Normal,
-	OtherMonth,
-	WorkdayMarked,
-	WorkdayGenerated
-}
-
 interface Props {
 	viewingMonth: number;	
 	workdays: Workday[];
@@ -118,17 +112,17 @@ export default function Calendar(props: Props) {
 	}, [props.workdays]);
 
 
-    function getEndingDayIndex() {
+    function getEndingDayIndex(): number {
         const index = endOfMonthDay - 1;
         return index < 0 ? 6 : index;
     }
 
-    function getStartingDayIndex() {
+    function getStartingDayIndex(): number {
         const index = startOfMonthDay - 1;
         return index < 0 ? 6 : index;
     }
 
-	function isWorkday(date: Date) {
+	function isWorkday(date: Date): boolean {
 		return props.workdays.find(wd =>
 							 wd.date.getFullYear() === date.getFullYear() &&
 							 wd.date.getMonth() === date.getMonth() &&
@@ -141,11 +135,11 @@ export default function Calendar(props: Props) {
 		console.log(props.workdays);
 	}
 
-	function getDateFromCalculation2(i: number) {
+	function getPrevMonthDayIndex(i: number): Date {
 		return subDays(startOfMonth(viewingDate), (getStartingDayIndex() - i - 1) + 1);
 	}
 
-	function getDateFromCalculation(i: number) {
+	function getNextMonthDayIndex(i: number): Date {
 		return addDays(endOfMonth(viewingDate), i + 1);
 	}
 
@@ -162,7 +156,7 @@ export default function Calendar(props: Props) {
 		return totalDays;
 	}
 
-	function getStartPatternDate() {
+	function getStartPatternDate(): Date {
 		let smallestDate = props.workdays[0].date;
 
 		for (let i = 1; i < props.workdays.length; i++) {
@@ -174,7 +168,7 @@ export default function Calendar(props: Props) {
 		return smallestDate;
 	}
 
-	function getEndPatternDate() {
+	function getEndPatternDate(): Date {
 		let largestDate = props.workdays[0].date;
 
 		for (let i = 1; i < props.workdays.length; i++) {
@@ -247,47 +241,63 @@ export default function Calendar(props: Props) {
 			{/* days */}
 			<StyledGrid>
 				{Array.from({length: getStartingDayIndex()}).map((_, i) => (
-					<StyledDay key={i} onClick={() => addWorkday(getDateFromCalculation2(i))} $isToday={false} $dayType={getDayType(getDateFromCalculation2(i), true)}>
+					<StyledDay
+						key={i}
+						onClick={() => addWorkday(getPrevMonthDayIndex(i))}
+						$isToday={false}
+						$dayType={getDayType(getPrevMonthDayIndex(i), true)}
+					>
 						<span>
-							{getDateFromCalculation2(i).getDate()}
+							{getPrevMonthDayIndex(i).getDate()}
 						</span>
-						{(getDayType(getDateFromCalculation2(i), false) === DayType.WorkdayMarked
-							|| getDayType(getDateFromCalculation2(i), false) === DayType.WorkdayGenerated) &&
+						{(getDayType(getPrevMonthDayIndex(i), false) === DayType.WorkdayMarked ||
+						  getDayType(getPrevMonthDayIndex(i), false) === DayType.WorkdayGenerated) &&
 								<div>
-									<span className="">{getWorkday(getDateFromCalculation2(i))?.startTime}</span>
+									<span>{getWorkday(getPrevMonthDayIndex(i))?.startTime}</span>
 									—
-									<span className="">{getWorkday(getDateFromCalculation2(i))?.endTime}</span>
+									<span>{getWorkday(getPrevMonthDayIndex(i))?.endTime}</span>
 								</div>
 						}
 					</StyledDay>
 				))}
 
 				{days.map((day, i) => (
-					<StyledDay key={i} onClick={() => addWorkday(day)} $isToday={isToday(day)} $dayType={getDayType(day, false)}>
+					<StyledDay
+						key={i} 
+						onClick={() => addWorkday(day)}
+						$isToday={isToday(day)}
+						$dayType={getDayType(day, false)}
+					>
 						<span>
 							{day.getDate()}
 						</span>
-						{(getDayType(day, false) === DayType.WorkdayMarked
-							|| getDayType(day, false) === DayType.WorkdayGenerated) &&
+
+						{(getDayType(day, false) === DayType.WorkdayMarked ||
+						  getDayType(day, false) === DayType.WorkdayGenerated) &&
 								<div>
-									<span className="">{getWorkday(day)?.startTime}</span>
+									<span>{getWorkday(day)?.startTime}</span>
 									—
-									<span className="">{getWorkday(day)?.endTime}</span>
+									<span>{getWorkday(day)?.endTime}</span>
 								</div>
 						}
 					</StyledDay>
 				))}
 
 				{Array.from({length: 7 - getEndingDayIndex() - 1}).map((_, i) => (
-					<StyledDay key={i} onClick={() => addWorkday(getDateFromCalculation(i))} $isToday={false} $dayType={getDayType(getDateFromCalculation(i), true)}>
+					<StyledDay key={i}
+						onClick={() => addWorkday(getNextMonthDayIndex(i))}
+						$isToday={false}
+						$dayType={getDayType(getNextMonthDayIndex(i), true)}
+					>
 						<span>
-							{getDateFromCalculation(i).getDate()}
-							{(getDayType(getDateFromCalculation(i), false) === DayType.WorkdayMarked
-								|| getDayType(getDateFromCalculation(i), false) === DayType.WorkdayGenerated) &&
+							{getNextMonthDayIndex(i).getDate()}
+
+							{(getDayType(getNextMonthDayIndex(i), false) === DayType.WorkdayMarked ||
+							  getDayType(getNextMonthDayIndex(i), false) === DayType.WorkdayGenerated) &&
 									<div>
-										<span className="">{getWorkday(getDateFromCalculation(i))?.startTime}</span>
+										<span>{getWorkday(getNextMonthDayIndex(i))?.startTime}</span>
 										—
-										<span className="">{getWorkday(getDateFromCalculation(i))?.endTime}</span>
+										<span>{getWorkday(getNextMonthDayIndex(i))?.endTime}</span>
 									</div>
 							}
 						</span>
