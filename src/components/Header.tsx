@@ -4,6 +4,7 @@ import IconButton from "./IconButton";
 import { format } from "date-fns";
 import { H1 } from "./H1";
 import { prefix } from "@/prefix";
+import { useEffect, useState } from "react";
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -45,6 +46,12 @@ interface Props {
 }
 
 export default function Header(props: Props) {
+	const [title, setTitle] = useState("Načítání...");
+
+	useEffect(() => {
+		setTitle("Plánovač směn");
+	}, []);
+
 	function getDate() {
 		const date = new Date();
 		date.setMonth(props.viewingMonthIndex);
@@ -70,7 +77,7 @@ export default function Header(props: Props) {
 				/>
 			</StyledToolbar>
 
-			<H1>Plánovač směn</H1>
+			<H1>{title}</H1>
 
 			<StyledMonthControls>
 				<IconButton
