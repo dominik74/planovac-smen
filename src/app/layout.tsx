@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+import StyledComponentsRegistry from "@/lib/registry";
 
 export const metadata: Metadata = {
   title: "Plánovač směn",
@@ -24,7 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="cz">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
