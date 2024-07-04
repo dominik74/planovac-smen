@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image"
 import styled from "styled-components";
 
 const StyledIconButton = styled.button`
@@ -12,11 +13,6 @@ const StyledIconButton = styled.button`
 
 	&:active {
 		background: lightgray;
-	}
-
-	> img {
-		width: 24px;
-		height: 24px;
 	}
 
 	@media (hover: hover) and (pointer: fine) {
@@ -33,7 +29,12 @@ interface Props {
 export default function IconButton(props: Props) {
 	return (
 		<StyledIconButton onClick={props.onClick}>
-			<img src={props.src} alt={props.alt ? props.alt : ""} />
+			<Image
+				src={props.src}
+				alt={props.alt ? props.alt : ""}
+				width={24}
+				height={24}
+			/>
 		</StyledIconButton>
 	);
 }
