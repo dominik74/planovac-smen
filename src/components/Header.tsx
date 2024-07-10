@@ -12,6 +12,16 @@ const StyledHeader = styled.header`
 	padding: 8px;
 	// height: 65px;	
 	height: 55px;	
+
+	${H1} {
+		display: none;
+	}
+
+	@media (min-width: 640px) {
+		${H1} {
+			display: block;
+		}
+	} 
 `;
 
 const StyledMonthControls = styled.div`
