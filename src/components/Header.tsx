@@ -64,7 +64,7 @@ export default function Header(props: Props) {
 
 	function getDate() {
 		const date = new Date();
-		date.setMonth(props.viewingMonthIndex);
+		date.setMonth(props.viewingMonthIndex, 1);
   		const options = { year: 'numeric', month: 'long' } as Intl.DateTimeFormatOptions;
 		return date.toLocaleDateString(undefined, options);
 	}
