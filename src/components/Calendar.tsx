@@ -47,7 +47,7 @@ export default function Calendar(props: Props) {
 
 
 	const currentDate = new Date();
-	const viewingDate = new Date(currentDate.getFullYear(), props.viewingMonth, currentDate.getDate());
+	const viewingDate = new Date(currentDate.getFullYear(), props.viewingMonth, 1);
 
 	const startOfMonthDay = startOfMonth(viewingDate).getDay();
 	const endOfMonthDay = endOfMonth(viewingDate).getDay();
